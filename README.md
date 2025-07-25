@@ -1,41 +1,63 @@
-Feedback Tracker
-A simple full-stack feedback management system built using React, Tailwind CSS, and Node.js + Express.
+# 📝 Feedback Tracker
 
-How to Run the Project Locally
-Prerequisites
-Node.js (v14 or higher recommended)
-Git
+A simple and intuitive full-stack feedback management system built using **React**, **Tailwind CSS**, and **Node.js + Express**.
 
-Installation & Setup
+---
 
-1. Clone the Repository
+## 📦 Tech Stack
 
-git clone https://github.com/aditigupta72003/Feedback_Tracker.git
+- **Frontend**: React + Tailwind CSS
+- **Backend**: Node.js + Express
+- **Storage**: Local JSON file (`backend/server/data/feedback.json`)
+
+---
+
+## 🚀 How to Run the Project Locally
+
+### ✅ Prerequisites
+
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (v14 or higher)
+- [Git](https://git-scm.com/)
+
+---
+
+### ⚙️ Installation & Setup
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/adifiqupta72003/Feedback_Tracker.git
 cd Feedback_Tracker
 
-2. Start the Backend Server
 
+#### 2. Backend
 cd backend
 npm install
 node server.js
-Starts on http://localhost:3001
+```
+The backend will start at:
+📍 http://localhost:3001
 
-API Endpoints:
-GET /feedback
-POST /feedback
-PUT /feedback/:id/vote
-DELETE /feedback/:id
-GET /health
+Available API Endpoints:
+GET /feedback – Get all feedback items
 
-Feedback data is stored in backend/server/data/feedback.json
+POST /feedback – Add new feedback
 
-3. Start the Frontend React App
+PUT /feedback/:id/vote – Upvote or downvote a feedback item
+
+DELETE /feedback/:id – Delete a feedback item
+
+GET /health – Health check endpoint
+
+📂 Feedback data is stored in:
+backend/server/data/feedback.json
+
+
+#### 3. Frontend
+Open a new terminal:
 
 cd frontend
 npm install
 npm run dev
-Runs on http://localhost:3000
-
-For local development:
-
-const API_BASE_URL = "http://localhost:3001";
