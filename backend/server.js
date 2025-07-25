@@ -70,12 +70,12 @@ async function writeFeedback(feedback) {
 // GET /feedback - Get all feedback
 app.get('/feedback', async (req, res) => {
   try {
-    console.log('📖 Fetching all feedback...');
+    console.log(' Fetching all feedback...');
     const feedback = await readFeedback();
-    console.log(`✅ Retrieved ${feedback.length} feedback items`);
+    console.log(` Retrieved ${feedback.length} feedback items`);
     res.json(feedback);
   } catch (error) {
-    console.error('❌ Error reading feedback:', error);
+    console.error(' Error reading feedback:', error);
     res.status(500).json({ error: 'Failed to read feedback' });
   }
 });
@@ -84,14 +84,14 @@ app.get('/feedback', async (req, res) => {
 // POST /feedback - Add new feedback
 app.post('/feedback', async (req, res) => {
   try {
-    console.log('📝 Creating new feedback...');
-    console.log('📦 Incoming request body:', req.body); // ✅ Debug log
+    console.log(' Creating new feedback...');
+    console.log(' Incoming request body:', req.body); // ✅ Debug log
 
     const { name, email, message } = req.body;
 
     // Enhanced validation
     if (!name || !email || !message) {
-      console.log('❌ Missing required fields');
+      console.log('Missing required fields');
       return res.status(400).json({ error: 'All fields (name, email, message) are required.' });
     }
 
@@ -105,7 +105,7 @@ app.post('/feedback', async (req, res) => {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email.trim())) {
-      console.log('❌ Invalid email format');
+      console.log(' Invalid email format');
       return res.status(400).json({ error: 'Invalid email format.' });
     }
 
@@ -122,10 +122,10 @@ app.post('/feedback', async (req, res) => {
     feedback.unshift(newFeedback);
     await writeFeedback(feedback);
 
-    console.log(`✅ Successfully created feedback with ID: ${newFeedback.id}`);
+    console.log(` Successfully created feedback with ID: ${newFeedback.id}`);
     res.status(201).json(newFeedback);
   } catch (error) {
-    console.error('❌ Error creating feedback:', error);
+    console.error(' Error creating feedback:', error);
     res.status(500).json({ error: 'Failed to create feedback. Please try again later.' });
   }
 });
@@ -134,12 +134,12 @@ app.post('/feedback', async (req, res) => {
 // PUT /feedback/:id/vote - Upvote or downvote
 app.put('/feedback/:id/vote', async (req, res) => {
   try {
-    console.log(`🗳️ Processing vote for feedback ID: ${req.params.id}`);
+    console.log(` Processing vote for feedback ID: ${req.params.id}`);
     const { id } = req.params;
     const { action } = req.body;
 
     if (!action || !['upvote', 'downvote'].includes(action)) {
-      console.log('❌ Invalid vote action');
+      console.log('Invalid vote action');
       return res.status(400).json({ error: 'Action must be "upvote" or "downvote"' });
     }
 
@@ -147,7 +147,7 @@ app.put('/feedback/:id/vote', async (req, res) => {
     const feedbackIndex = feedback.findIndex(item => item.id === id);
 
     if (feedbackIndex === -1) {
-      console.log('❌ Feedback not found');
+      console.log(' Feedback not found');
       return res.status(404).json({ error: 'Feedback not found' });
     }
 
@@ -155,10 +155,10 @@ app.put('/feedback/:id/vote', async (req, res) => {
     feedback[feedbackIndex].votes += voteChange;
 
     await writeFeedback(feedback);
-    console.log(`✅ Successfully ${action}d feedback. New vote count: ${feedback[feedbackIndex].votes}`);
+    console.log(` Successfully ${action}d feedback. New vote count: ${feedback[feedbackIndex].votes}`);
     res.json(feedback[feedbackIndex]);
   } catch (error) {
-    console.error('❌ Error voting on feedback:', error);
+    console.error('Error voting on feedback:', error);
     res.status(500).json({ error: 'Failed to vote on feedback' });
   }
 });
@@ -172,17 +172,17 @@ app.delete('/feedback/:id', async (req, res) => {
     const feedbackIndex = feedback.findIndex(item => item.id === id);
 
     if (feedbackIndex === -1) {
-      console.log('❌ Feedback not found');
+      console.log('Feedback not found');
       return res.status(404).json({ error: 'Feedback not found' });
     }
 
     const deletedFeedback = feedback.splice(feedbackIndex, 1)[0];
     await writeFeedback(feedback);
 
-    console.log(`✅ Successfully deleted feedback: ${deletedFeedback.name}`);
+    console.log(` Successfully deleted feedback: ${deletedFeedback.name}`);
     res.json({ message: 'Feedback deleted successfully', feedback: deletedFeedback });
   } catch (error) {
-    console.error('❌ Error deleting feedback:', error);
+    console.error(' Error deleting feedback:', error);
     res.status(500).json({ error: 'Failed to delete feedback' });
   }
 });
@@ -211,31 +211,31 @@ app.get('/stats', async (req, res) => {
       positiveRate: feedback.length > 0 ? ((positiveVotes / feedback.length) * 100).toFixed(0) : '0'
     });
   } catch (error) {
-    console.error('❌ Error getting stats:', error);
+    console.error(' Error getting stats:', error);
     res.status(500).json({ error: 'Failed to get statistics' });
   }
 });
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error('❌ Server Error:', err.stack);
+  console.error(' Server Error:', err.stack);
   res.status(500).json({ error: 'Something went wrong on our end!' });
 });
 
 // 404 handler
 app.use((req, res) => {
-  console.log(`❌ Route not found: ${req.method} ${req.url}`);
+  console.log(`Route not found: ${req.method} ${req.url}`);
   res.status(404).json({ error: 'Route not found' });
 });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('🛑 SIGTERM received, shutting down gracefully');
+  console.log('SIGTERM received, shutting down gracefully');
   process.exit(0);
 });
 
 process.on('SIGINT', () => {
-  console.log('🛑 SIGINT received, shutting down gracefully');
+  console.log('SIGINT received, shutting down gracefully');
   process.exit(0);
 });
 
