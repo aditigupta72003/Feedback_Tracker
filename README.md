@@ -33,7 +33,7 @@ Feedback data is stored in backend/server/data/feedback.json
 
 cd frontend
 npm install
-npm start
+npm run dev
 Runs on http://localhost:3000
 
 For local development:
