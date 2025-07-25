@@ -27,7 +27,7 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('🚀 App mounted! Calling loadFeedback...');
+    console.log('App mounted! Calling loadFeedback...');
     loadFeedback();
   }, []);
 

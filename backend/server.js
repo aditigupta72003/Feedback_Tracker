@@ -239,12 +239,12 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-app.listen(PORT, () => {
-  console.log('🚀 ======================================');
-  console.log('🚀 Feedback Tracker Pro API Server');
-  console.log('🚀 ======================================');
-  console.log(`🌐 Server running on: http://localhost:${PORT}`);
-  console.log(`💾 Data storage: ${DATA_FILE}`);
-  console.log(`⏰ Started at: ${new Date().toISOString()}`);
-  console.log('🚀 ======================================');
+app.listen(PORT, '0.0.0.0',() => {
+  console.log(' ======================================');
+  console.log(' Feedback Tracker Pro API Server');
+  console.log('======================================');
+  console.log(` Server running on: http://localhost:${PORT}`);
+  console.log(` Data storage: ${DATA_FILE}`);
+  console.log(` Started at: ${new Date().toISOString()}`);
+  console.log(' ======================================');
 });
